@@ -2,27 +2,40 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Liste des produits</div>
         <div class="panel-body">
-            <button class="btn btn-primary" (click)="onGetProducts()">Produits</button>
-        </div>
-        <div class="panel-body">
-            <table class="table table-striped" *ngIf="produits" >
-                    <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>DES</th>
-                    <th>PRIX</th>
-                    <th>QTE</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let p of produits._embedded.produits">
-                    <td>{{p.id}}</td>
-                    <td>{{p.designation}}</td>
-                    <td>{{p.price|number:'0.2'}}</td>
-                    <td>{{p.quantite}}</td>
-                </tr>
-            </tbody>
+            <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+                <div class="form-group">
+                    <label>Mot-Clé : </label>
+                    <input type="text" name="keyword" ngModel>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Chercher
+                    </button>
+                </div>
+            </form>
+            <table class="table table-striped" *ngIf="produits">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>DES</th>
+                        <th>PRIX</th>
+                        <th>QTE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of produits._embedded.produits">
+                        <td>{{p.id}}</td>
+                        <td>{{p.designation}}</td>
+                        <td>{{p.price|number:'0.2'}}</td>
+                        <td>{{p.quantite}}</td>
+                        <td><a class="btn btn-danger" (click)="onDeleteProduct(p)">Supprimer</a></td>
+                    </tr>
+                </tbody>
             </table>
+            <ul *ngIf="pages" class="nav nav-pills">
+                <li [ngClass]="i==currentPage?'active':'' " *ngFor="let p of pages; let i=index">
+                    <a class="clickable" (click)="onPageProduct(i)">{{i}}</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
