@@ -19,7 +19,7 @@ export class NewProductComponent implements OnInit {
 
   onSaveProduct(data:any){
     this.catService.saveResource(this.catService.host + "/produits", data)
-    .subscribe((res:Product)=>{
+    .subscribe(res=>{
       // this.router.navigateByUrl("/products");
       this.currentProduct=res;
       this.mode=2;

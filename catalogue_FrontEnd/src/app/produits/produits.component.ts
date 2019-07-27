@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CatalogueService } from './../services/catalogue.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,7 +17,7 @@ export class ProduitsComponent implements OnInit {
   currentKeyword: string="";
 
 
-  constructor(private CatService:CatalogueService) { }
+  constructor(private CatService:CatalogueService, private router:Router) { }
 
   ngOnInit() {
 
@@ -65,6 +66,11 @@ export class ProduitsComponent implements OnInit {
           console.log(err);
         })
       }
+    }
+
+    onEditeProduct(p){
+      let url=p._links.self.href;
+      this.router.navigateByUrl("/edit-product/"+btoa(url));
     }
 
 }
