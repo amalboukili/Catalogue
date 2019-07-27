@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Product } from 'src/model/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +20,12 @@ export class CatalogueService {
     return this.httpClient.get(this.host+"//produits/search/byDesignationPage?mc="+mc+"&page="+page+"&size="+size);
   }
   
-  public deleteResource(url){
+  public deleteResource(url: string){
     return this.httpClient.delete(url);
+  }
+
+  public saveResource(url, data){
+    return this.httpClient.post(url,data);
   }
 
 }
